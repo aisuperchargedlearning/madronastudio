@@ -1,0 +1,16 @@
+{
+  "name": "madrona-studios",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^6.0.8",
+    "docx": "^9.6.1",
+    "tailwindcss": "^3.4.19"
+  }
+}

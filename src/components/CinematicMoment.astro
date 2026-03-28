@@ -1,0 +1,127 @@
+---
+/*
+ * CinematicMoment — A single beat in the visual narrative.
+ *
+ * Large image + short text passage. One image, one job.
+ * Scroll-triggered reveal. No grids. No thumbnails.
+ *
+ * Used on the HOME page (four moments) and THE WORLD page
+ * (geographic progression). Each instance is a scene, not a section.
+ *
+ * Mobile pacing: the component structure supports showing a curated
+ * subset — the parent page controls which moments render on mobile.
+ */
+
+interface Props {
+  /** Image source */
+  imageSrc?: string;
+  /** Alt text */
+  imageAlt?: string;
+  /** Moment title — short, evocative */
+  title?: string;
+  /** Text passage — 1-3 sentences in Elena's register */
+  passage?: string;
+  /** Layout: 'image-first' (default) or 'text-first' */
+  layout?: 'image-first' | 'text-first';
+  /** Optional link deeper into the site */
+  linkHref?: string;
+  /** Link text */
+  linkText?: string;
+  /** Dark background variant (for contrast) */
+  dark?: boolean;
+}
+
+const {
+  imageSrc,
+  imageAlt = '',
+  title = '[PLACEHOLDER — Moment title]',
+  passage = '[PLACEHOLDER — A short passage in Elena\'s register. One or two sentences that hold a single image, a single tension.]',
+  layout = 'image-first',
+  linkHref,
+  linkText = 'Continue',
+  dark = false,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    'cinematic-moment py-section-sm md:py-section opacity-0 translate-y-8 transition-all duration-reveal ease-reveal',
+    dark ? 'bg-charcoal-deep text-cream' : 'text-charcoal',
+  ]}
+  data-reveal
+>
+  <div class:list={[
+    'max-w-content mx-auto px-5 md:px-8 lg:px-12',
+    'flex flex-col gap-passage-sm md:gap-passage',
+    layout === 'text-first' ? 'lg:flex-col' : 'lg:flex-col',
+  ]}>
+    <!-- Image — full width, single image, one job -->
+    <div class="w-full overflow-hidden rounded-sm">
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="w-full h-auto object-cover aspect-[16/9] md:aspect-[21/9]"
+          loading="lazy"
+        />
+      ) : (
+        <div class:list={[
+          'w-full aspect-[16/9] md:aspect-[21/9]',
+          dark
+            ? 'bg-gradient-to-br from-metallic-oil via-charcoal to-storm-dark'
+            : 'bg-gradient-to-br from-metallic-iron via-metallic to-metallic-steel',
+        ]}>
+          <!-- Placeholder image — respects cinematic aspect ratio -->
+        </div>
+      )}
+    </div>
+
+    <!-- Text passage -->
+    <div class:list={[
+      'max-w-prose',
+      layout === 'text-first' ? 'order-first lg:order-first' : '',
+    ]}>
+      <h3 class:list={[
+        'text-display-sm font-display mb-breath',
+        dark ? 'text-amber-pale' : 'text-charcoal',
+      ]}>
+        {title}
+      </h3>
+      <p class:list={[
+        'voice-elena text-body-lg',
+        dark ? 'text-cream/70' : 'text-metallic',
+      ]}>
+        {passage}
+      </p>
+      {linkHref && (
+        <a
+          href={linkHref}
+          class:list={[
+            'inline-block mt-6 text-nav font-body font-medium uppercase tracking-widest transition-colors duration-medium',
+            dark ? 'text-amber-pale hover:text-amber-light' : 'text-rosso hover:text-rosso-light',
+          ]}
+        >
+          {linkText} &rarr;
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll-triggered reveal — minimal, no library
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('opacity-0', 'translate-y-8');
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>

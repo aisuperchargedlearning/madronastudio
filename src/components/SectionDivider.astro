@@ -1,0 +1,43 @@
+---
+/*
+ * SectionDivider — Minimal visual separator between sections.
+ *
+ * Not a horizontal rule. A breath mark. The typographic equivalent
+ * of the space between paragraphs in a well-set novel.
+ */
+
+interface Props {
+  /** Style: 'line' (subtle rule) | 'space' (whitespace only) | 'mark' (centered ornament) */
+  style?: 'line' | 'space' | 'mark';
+  /** Dark background variant */
+  dark?: boolean;
+}
+
+const {
+  style = 'line',
+  dark = false,
+} = Astro.props;
+---
+
+{style === 'space' && (
+  <div class="py-passage-sm md:py-passage" aria-hidden="true"></div>
+)}
+
+{style === 'line' && (
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 py-passage-sm md:py-passage" aria-hidden="true">
+    <div class:list={[
+      'h-px',
+      dark ? 'bg-metallic-iron/30' : 'bg-amber-pale/20',
+    ]}></div>
+  </div>
+)}
+
+{style === 'mark' && (
+  <div class="py-passage-sm md:py-passage flex justify-center" aria-hidden="true">
+    <div class="flex gap-2 items-center">
+      <div class:list={['w-1.5 h-1.5 rounded-full', dark ? 'bg-amber/30' : 'bg-amber/40']}></div>
+      <div class:list={['w-1 h-1 rounded-full', dark ? 'bg-amber/20' : 'bg-amber/25']}></div>
+      <div class:list={['w-1.5 h-1.5 rounded-full', dark ? 'bg-amber/30' : 'bg-amber/40']}></div>
+    </div>
+  </div>
+)}

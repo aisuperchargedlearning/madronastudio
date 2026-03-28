@@ -1,0 +1,73 @@
+---
+/*
+ * ContactSplit — Two pathways, one page.
+ *
+ * Readers: mailing list signup.
+ * Industry: professional inquiry contact.
+ *
+ * No contact forms with ten fields. No clutter.
+ * One line for readers, one line for industry.
+ */
+
+interface Props {
+  /** Industry contact email */
+  industryEmail?: string;
+  /** Mailing list description */
+  readerDescription?: string;
+  /** Industry description */
+  industryDescription?: string;
+}
+
+const {
+  industryEmail = 'contact@madronastudios.com',
+  readerDescription = 'Historical notes, behind-the-scenes material, early access to future work.',
+  industryDescription = 'For film, television, and adaptation inquiries.',
+} = Astro.props;
+---
+
+<section class="py-section-sm md:py-section">
+  <div class="max-w-prose-wide mx-auto px-5 md:px-8 lg:px-12">
+    <div class="grid md:grid-cols-2 gap-passage md:gap-12">
+
+      <!-- Reader pathway -->
+      <div>
+        <h3 class="text-display-sm font-display text-charcoal mb-breath">
+          For Readers
+        </h3>
+        <p class="text-body text-metallic mb-6">
+          {readerDescription}
+        </p>
+        <form class="space-y-3">
+          <input
+            type="email"
+            placeholder="Your email"
+            class="w-full px-4 py-2.5 bg-cream-warm border border-amber-pale/30 rounded-sm text-body-sm text-charcoal placeholder:text-metallic-steel/50 focus:outline-none focus:border-amber transition-colors duration-medium"
+          />
+          <button
+            type="submit"
+            class="w-full px-5 py-2.5 bg-charcoal text-cream text-nav font-body font-medium uppercase tracking-widest hover:bg-charcoal-light transition-colors duration-medium rounded-sm"
+          >
+            Join the List
+          </button>
+        </form>
+      </div>
+
+      <!-- Industry pathway -->
+      <div>
+        <h3 class="text-display-sm font-display text-charcoal mb-breath">
+          For Industry
+        </h3>
+        <p class="text-body text-metallic mb-6">
+          {industryDescription}
+        </p>
+        <a
+          href={`mailto:${industryEmail}`}
+          class="inline-block px-6 py-2.5 border border-charcoal text-charcoal text-nav font-body font-medium uppercase tracking-widest hover:bg-charcoal hover:text-cream transition-colors duration-medium rounded-sm"
+        >
+          {industryEmail}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

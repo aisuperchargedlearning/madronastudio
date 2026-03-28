@@ -1,0 +1,74 @@
+---
+/*
+ * TextPassage — Standalone text block with breathing room.
+ *
+ * Supports the Elena voice register: short, precise passages
+ * with generous spacing between them. The silence around the
+ * text is as important as the text itself.
+ *
+ * Can be used for transitional moments, closing statements,
+ * section intros, or any passage that needs to stand alone.
+ */
+
+interface Props {
+  /** Main text content */
+  text?: string;
+  /** Optional smaller secondary text */
+  secondary?: string;
+  /** Text alignment: 'left' (default) | 'center' */
+  align?: 'left' | 'center';
+  /** Use the Elena voice (italic Cormorant Garamond) */
+  elenaVoice?: boolean;
+  /** Dark background variant */
+  dark?: boolean;
+  /** Size: 'sm' | 'md' (default) | 'lg' */
+  size?: 'sm' | 'md' | 'lg';
+  /** Maximum width override */
+  maxWidth?: 'prose' | 'prose-wide';
+}
+
+const {
+  text = '[PLACEHOLDER — A passage in Elena\'s register. Precise, interior, attentive to physical detail.]',
+  secondary,
+  align = 'left',
+  elenaVoice = false,
+  dark = false,
+  size = 'md',
+  maxWidth = 'prose',
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-body',
+  md: 'text-body-lg',
+  lg: 'text-display-sm',
+};
+---
+
+<section class:list={[
+  'py-passage-sm md:py-passage',
+  dark ? 'bg-charcoal-deep' : '',
+]}>
+  <div class:list={[
+    'max-w-content mx-auto px-5 md:px-8 lg:px-12',
+    align === 'center' ? 'text-center flex flex-col items-center' : '',
+  ]}>
+    <p class:list={[
+      sizeClasses[size],
+      maxWidth === 'prose' ? 'max-w-prose' : 'max-w-prose-wide',
+      elenaVoice ? 'voice-elena' : 'font-body',
+      dark ? 'text-cream/80' : 'text-charcoal',
+    ]}>
+      {text}
+    </p>
+    {secondary && (
+      <p class:list={[
+        'text-body mt-breath',
+        maxWidth === 'prose' ? 'max-w-prose' : 'max-w-prose-wide',
+        dark ? 'text-metallic-steel' : 'text-metallic-steel',
+      ]}>
+        {secondary}
+      </p>
+    )}
+    <slot />
+  </div>
+</section>

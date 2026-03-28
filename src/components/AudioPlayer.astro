@@ -1,0 +1,196 @@
+---
+/*
+ * AudioPlayer — Custom, native-feeling audio player.
+ *
+ * The site's most differentiating element. Must feel integrated
+ * into the page's visual and emotional design — not a generic widget.
+ *
+ * Features: play/pause, progress bar, elapsed/total time,
+ * track title, contextual text passage.
+ *
+ * Built with minimal client-side JS. Styled to match the
+ * Madrona palette. No third-party audio libraries.
+ */
+
+interface Props {
+  /** Audio file source */
+  audioSrc?: string;
+  /** Track title */
+  title?: string;
+  /** Contextual passage — what moment in the story this inhabits */
+  context?: string;
+  /** Optional subtitle (e.g., instrument, movement name) */
+  subtitle?: string;
+  /** Dark variant for dark-background sections */
+  dark?: boolean;
+  /** Unique ID for this player instance */
+  id?: string;
+}
+
+const {
+  audioSrc,
+  title = '[PLACEHOLDER — Track Title]',
+  context = '[PLACEHOLDER — Not liner notes. Emotional context. What moment in the story this sound inhabits.]',
+  subtitle,
+  dark = false,
+  id = `player-${Math.random().toString(36).slice(2, 8)}`,
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'audio-player group',
+    'max-w-prose-wide mx-auto',
+    'py-passage-sm md:py-passage',
+  ]}
+  data-player-id={id}
+>
+  <!-- Contextual passage -->
+  <p class:list={[
+    'voice-elena text-body-lg mb-passage-sm max-w-prose',
+    dark ? 'text-cream/70' : 'text-metallic',
+  ]}>
+    {context}
+  </p>
+
+  <!-- Player control -->
+  <div class:list={[
+    'rounded-sm overflow-hidden',
+    dark
+      ? 'bg-charcoal-light/50 border border-metallic-iron/30'
+      : 'bg-cream-warm border border-amber-pale/30',
+  ]}>
+    <div class="px-5 md:px-6 py-4 md:py-5">
+      <!-- Track info + play button -->
+      <div class="flex items-center gap-4">
+        <!-- Play/Pause button -->
+        <button
+          class:list={[
+            'audio-play-btn flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center',
+            'transition-colors duration-medium',
+            dark
+              ? 'bg-amber/20 hover:bg-amber/30 text-amber-pale'
+              : 'bg-charcoal text-cream hover:bg-charcoal-light',
+          ]}
+          aria-label="Play"
+          data-player-target={id}
+        >
+          <!-- Play icon -->
+          <svg class="play-icon w-4 h-4 ml-0.5" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M4 2l10 6-10 6V2z"/>
+          </svg>
+          <!-- Pause icon (hidden by default) -->
+          <svg class="pause-icon w-4 h-4 hidden" viewBox="0 0 16 16" fill="currentColor">
+            <rect x="3" y="2" width="3.5" height="12"/>
+            <rect x="9.5" y="2" width="3.5" height="12"/>
+          </svg>
+        </button>
+
+        <!-- Track info -->
+        <div class="flex-1 min-w-0">
+          <p class:list={[
+            'font-display text-display-sm truncate',
+            dark ? 'text-cream' : 'text-charcoal',
+          ]}>
+            {title}
+          </p>
+          {subtitle && (
+            <p class:list={[
+              'text-body-sm mt-0.5',
+              dark ? 'text-amber/60' : 'text-metallic-steel',
+            ]}>
+              {subtitle}
+            </p>
+          )}
+        </div>
+
+        <!-- Time display -->
+        <div class:list={[
+          'audio-time text-body-sm font-mono flex-shrink-0',
+          dark ? 'text-amber/50' : 'text-metallic-steel',
+        ]}
+          data-time-target={id}
+        >
+          0:00 / 0:00
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div
+        class="audio-progress-container mt-4 cursor-pointer group/progress"
+        data-progress-target={id}
+      >
+        <div class:list={[
+          'h-1 rounded-full overflow-hidden',
+          dark ? 'bg-metallic-oil' : 'bg-amber-pale/30',
+        ]}>
+          <div
+            class:list={[
+              'audio-progress-bar h-full rounded-full transition-all duration-100',
+              dark ? 'bg-amber' : 'bg-rosso',
+            ]}
+            style="width: 0%"
+            data-bar-target={id}
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Custom audio player logic — minimal, no library
+  document.querySelectorAll('.audio-player').forEach(playerEl => {
+    const id = playerEl.getAttribute('data-player-id');
+    const playBtn = playerEl.querySelector(`[data-player-target="${id}"]`);
+    const timeDisplay = playerEl.querySelector(`[data-time-target="${id}"]`);
+    const progressContainer = playerEl.querySelector(`[data-progress-target="${id}"]`);
+    const progressBar = playerEl.querySelector(`[data-bar-target="${id}"]`);
+    const playIcon = playBtn?.querySelector('.play-icon');
+    const pauseIcon = playBtn?.querySelector('.pause-icon');
+
+    // Audio element created programmatically (no src in placeholder mode)
+    let audio: HTMLAudioElement | null = null;
+    let isPlaying = false;
+
+    function formatTime(seconds: number): string {
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function updateProgress() {
+      if (!audio) return;
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      if (progressBar) (progressBar as HTMLElement).style.width = `${pct}%`;
+      if (timeDisplay) timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration || 0)}`;
+      if (isPlaying) requestAnimationFrame(updateProgress);
+    }
+
+    playBtn?.addEventListener('click', () => {
+      // Placeholder behavior: toggle visual state even without audio
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon?.classList.add('hidden');
+        pauseIcon?.classList.remove('hidden');
+        playBtn.setAttribute('aria-label', 'Pause');
+        audio?.play();
+      } else {
+        playIcon?.classList.remove('hidden');
+        pauseIcon?.classList.add('hidden');
+        playBtn.setAttribute('aria-label', 'Play');
+        audio?.pause();
+      }
+      if (isPlaying) updateProgress();
+    });
+
+    // Click on progress bar to seek
+    progressContainer?.addEventListener('click', (e: Event) => {
+      if (!audio?.duration) return;
+      const rect = (progressContainer as HTMLElement).getBoundingClientRect();
+      const pct = ((e as MouseEvent).clientX - rect.left) / rect.width;
+      audio.currentTime = pct * audio.duration;
+      updateProgress();
+    });
+  });
+</script>

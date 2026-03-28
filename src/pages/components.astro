@@ -1,0 +1,240 @@
+---
+/*
+ * STAGE 2 — Components Test Page
+ *
+ * Every reusable component rendered in isolation with placeholder content.
+ * This page exists for visual review before pages are assembled.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroFullBleed from '../components/HeroFullBleed.astro';
+import CinematicMoment from '../components/CinematicMoment.astro';
+import TextPassage from '../components/TextPassage.astro';
+import CharacterPortrait from '../components/CharacterPortrait.astro';
+import AudioPlayer from '../components/AudioPlayer.astro';
+import PurchaseBlock from '../components/PurchaseBlock.astro';
+import ContactSplit from '../components/ContactSplit.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Components" currentPage="">
+
+  <!-- ──────────────────────────────────────────────
+       1. HERO FULL BLEED
+       ────────────────────────────────────────────── -->
+  <div class="mb-passage">
+    <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 py-8">
+      <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 1</p>
+      <h2 class="text-display-md font-display text-charcoal">HeroFullBleed</h2>
+      <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+        Full-screen image with text overlay. The cold open. Dark placeholder gradient
+        simulates the low-key lighting the real photograph will use.
+      </p>
+    </div>
+  </div>
+
+  <HeroFullBleed
+    overlayText="Two women. One engine. A war that erased them from the record — and a machine that carried their names in its metal."
+    subtitle="The Ferrari Covenant"
+  />
+
+
+  <!-- ──────────────────────────────────────────────
+       2. CINEMATIC MOMENT (light)
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 2</p>
+    <h2 class="text-display-md font-display text-charcoal">CinematicMoment — Light</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Large image + short text passage. Scroll-triggered reveal.
+      One image, one job. 21:9 aspect on desktop, 16:9 on mobile.
+    </p>
+  </div>
+
+  <CinematicMoment
+    title="The Crossing"
+    passage="The SS Rex, 1938. Elena leaves Berkeley with secrets sewn into the lining of her life. The Atlantic crossing takes nine days. She spends them memorizing what she cannot write down."
+    linkHref="#"
+    linkText="Enter the World"
+  />
+
+
+  <!-- ──────────────────────────────────────────────
+       2b. CINEMATIC MOMENT (dark variant)
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-passage">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 2b</p>
+    <h2 class="text-display-md font-display text-charcoal">CinematicMoment — Dark</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Same component on a dark background. For sections that need
+      the weight of night or the interior of the factory.
+    </p>
+  </div>
+
+  <CinematicMoment
+    title="The Factory"
+    passage="Modena, wartime. Ferrari's machine shop hums with double purpose. What they build by day is not what they build by night. The tolerances are the same. The stakes are not."
+    dark={true}
+    linkHref="#"
+    linkText="Read the Story"
+  />
+
+
+  <!-- ──────────────────────────────────────────────
+       3. TEXT PASSAGE (variations)
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 3</p>
+    <h2 class="text-display-md font-display text-charcoal">TextPassage — Variations</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Standalone text with breathing room. Three sizes. Elena voice variant.
+      Center-aligned variant. The building block for transitions and closing statements.
+    </p>
+  </div>
+
+  <TextPassage
+    text="Read the novel. See the world it opens."
+    size="lg"
+    elenaVoice={true}
+    align="center"
+  />
+
+  <SectionDivider style="mark" />
+
+  <TextPassage
+    text="She had learned at Berkeley to hold a secret the way you hold a precision instrument — with both hands, with attention to temperature, with the knowledge that the slightest tremor would show in the work."
+    size="md"
+    elenaVoice={true}
+  />
+
+  <TextPassage
+    text="This passage uses the body font at standard size. For transitional text, section introductions, or historical context that supports the narrative without claiming to be part of it."
+    size="sm"
+    secondary="Secondary text — a note, a date, a quiet clarification."
+  />
+
+
+  <!-- ──────────────────────────────────────────────
+       4. CHARACTER PORTRAIT
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 4</p>
+    <h2 class="text-display-md font-display text-charcoal">CharacterPortrait</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Image + text side by side. Not a bio — a portrait. 3:4 aspect ratio.
+      Supports left/right image placement for visual rhythm.
+    </p>
+  </div>
+
+  <CharacterPortrait
+    name="Elena Benetti"
+    role="First-person narrator"
+    description="An engineer who learned to read engines the way other people read faces. She carries Berkeley's precision and Italy's silence in the same hands. The reader's way in — through her attention, through the quality of what she notices and what she chooses not to say."
+    imagePosition="left"
+  />
+
+  <CharacterPortrait
+    name="Sophia Rossi"
+    role="Mathematician"
+    description="A mathematician whose social precision is its own form of detonation. She moves through rooms like a calculation — every gesture weighted, every silence strategic. What she withholds is as engineered as what she reveals."
+    imagePosition="right"
+  />
+
+
+  <!-- ──────────────────────────────────────────────
+       5. AUDIO PLAYER
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 5</p>
+    <h2 class="text-display-md font-display text-charcoal">AudioPlayer</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Custom audio player. Play/pause, progress, track info, contextual passage.
+      Styled native — not a widget. Light and dark variants.
+    </p>
+  </div>
+
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12">
+    <AudioPlayer
+      title="The Six-Note Motif"
+      subtitle="Piano, solo"
+      context="The motif appears first in the factory — six notes that Elena hears in the rhythm of the machinery. Later, Sophia plays them on a piano in a Roman apartment, and the notes become something else entirely. A recognition."
+    />
+  </div>
+
+  <!-- Dark variant -->
+  <div class="bg-charcoal-deep">
+    <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-8">
+      <p class="text-nav font-body font-medium uppercase tracking-widest text-amber/60 mb-2">Dark variant</p>
+    </div>
+    <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pb-8">
+      <AudioPlayer
+        title="Elena and Sophia — Opening Theme"
+        subtitle="Orchestra with folk elements"
+        context="The opening theme carries two melodic lines that intertwine without resolving. One is precise, mechanical, built from intervals that suggest engineering. The other moves with the freedom of mountain wind. They never quite merge. They never separate."
+        dark={true}
+      />
+    </div>
+  </div>
+
+
+  <!-- ──────────────────────────────────────────────
+       6. PURCHASE BLOCK
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 6</p>
+    <h2 class="text-display-md font-display text-charcoal">PurchaseBlock</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Book cover, description, purchase links, mailing list.
+      Includes bridging sentence for emotional continuity.
+      Calm, confident, not an afterthought.
+    </p>
+  </div>
+
+  <PurchaseBlock />
+
+
+  <!-- ──────────────────────────────────────────────
+       7. CONTACT SPLIT
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 7</p>
+    <h2 class="text-display-md font-display text-charcoal">ContactSplit</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Two pathways — readers and industry. Clean, minimal.
+      One field for readers, one line for industry.
+    </p>
+  </div>
+
+  <ContactSplit />
+
+
+  <!-- ──────────────────────────────────────────────
+       8. SECTION DIVIDERS
+       ────────────────────────────────────────────── -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pt-section-sm md:pt-section">
+    <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-2">Component 8</p>
+    <h2 class="text-display-md font-display text-charcoal">SectionDivider — Three Styles</h2>
+    <p class="text-body-sm text-metallic-steel max-w-prose mt-2">
+      Breath marks between sections. Line, space, and mark variants.
+    </p>
+  </div>
+
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 py-8">
+    <p class="text-body-sm text-metallic-steel mb-4">Line:</p>
+  </div>
+  <SectionDivider style="line" />
+
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 py-8">
+    <p class="text-body-sm text-metallic-steel mb-4">Mark:</p>
+  </div>
+  <SectionDivider style="mark" />
+
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 py-8">
+    <p class="text-body-sm text-metallic-steel mb-4">Space (invisible — whitespace only):</p>
+  </div>
+  <SectionDivider style="space" />
+
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 pb-section-sm">
+    <p class="text-body-sm text-metallic-steel">↑ Space divider above (just whitespace)</p>
+  </div>
+
+</BaseLayout>

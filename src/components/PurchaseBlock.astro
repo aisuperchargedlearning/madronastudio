@@ -1,0 +1,123 @@
+---
+/*
+ * PurchaseBlock — Where readers convert.
+ *
+ * Book cover, description, purchase links, mailing list signup.
+ * NOT an afterthought — carries emotional continuity from the
+ * immersive pages. Includes provision for ambient audio (the
+ * six-note motif) and a voice-register bridging sentence.
+ *
+ * Clean, confident, calm. The moment of decision.
+ */
+
+interface Props {
+  /** Book cover image */
+  coverSrc?: string;
+  /** Book title */
+  title?: string;
+  /** Book description / back cover copy */
+  description?: string;
+  /** A single voice-register sentence bridging atmosphere to commerce */
+  bridgingSentence?: string;
+  /** Purchase links */
+  purchaseLinks?: Array<{ label: string; href: string }>;
+  /** Audio motif source for ambient background */
+  motifSrc?: string;
+}
+
+const {
+  coverSrc,
+  title = 'The Ferrari Covenant',
+  description = '[PLACEHOLDER — Back cover copy. The Amazon description, refined. Not a sales pitch — an invitation.]',
+  bridgingSentence = '[PLACEHOLDER — A single sentence in Elena\'s voice that carries the reader from the world they\'ve been immersed in into the decision to buy.]',
+  purchaseLinks = [
+    { label: 'Amazon', href: '#' },
+    { label: 'Barnes & Noble', href: '#' },
+  ],
+  motifSrc,
+} = Astro.props;
+---
+
+<section class="py-section-sm md:py-section">
+  <!-- Bridging sentence — emotional continuity -->
+  <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 mb-passage md:mb-section-sm">
+    <p class="voice-elena text-display-sm text-charcoal max-w-prose">
+      {bridgingSentence}
+    </p>
+  </div>
+
+  <!-- Book display -->
+  <div class="max-w-prose-wide mx-auto px-5 md:px-8 lg:px-12">
+    <div class="flex flex-col md:flex-row gap-passage md:gap-12 items-start">
+      <!-- Cover image -->
+      <div class="w-full md:w-2/5 flex-shrink-0">
+        {coverSrc ? (
+          <img
+            src={coverSrc}
+            alt={`${title} book cover`}
+            class="w-full max-w-xs mx-auto md:mx-0 shadow-lg rounded-sm"
+            loading="lazy"
+          />
+        ) : (
+          <div class="w-full max-w-xs mx-auto md:mx-0 aspect-[2/3] bg-gradient-to-b from-charcoal via-charcoal-light to-metallic-oil rounded-sm shadow-lg flex items-center justify-center">
+            <span class="font-display text-display-sm text-cream/30 text-center px-6">
+              {title}
+            </span>
+          </div>
+        )}
+      </div>
+
+      <!-- Book info -->
+      <div class="flex-1">
+        <h2 class="text-display-lg font-display text-charcoal mb-2">
+          {title}
+        </h2>
+        <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-passage-sm">
+          E.M. Voss
+        </p>
+
+        <p class="text-body text-metallic max-w-prose mb-passage-sm">
+          {description}
+        </p>
+
+        <!-- Purchase links -->
+        <div class="flex flex-wrap gap-3 mb-passage">
+          {purchaseLinks.map(link => (
+            <a
+              href={link.href}
+              class="inline-block px-6 py-2.5 bg-charcoal text-cream text-nav font-body font-medium uppercase tracking-widest hover:bg-charcoal-light transition-colors duration-medium rounded-sm"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        <!-- Mailing list signup -->
+        <div class="border-t border-amber-pale/20 pt-passage-sm">
+          <p class="text-body-sm text-metallic-steel mb-4">
+            Enter the world of The Ferrari Covenant — early chapters,
+            historical notes, and soundtrack previews.
+          </p>
+          <form class="flex gap-3 max-w-md">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="flex-1 px-4 py-2.5 bg-cream-warm border border-amber-pale/30 rounded-sm text-body-sm text-charcoal placeholder:text-metallic-steel/50 focus:outline-none focus:border-amber transition-colors duration-medium"
+            />
+            <button
+              type="submit"
+              class="px-5 py-2.5 bg-rosso text-cream text-nav font-body font-medium uppercase tracking-widest hover:bg-rosso-light transition-colors duration-medium rounded-sm flex-shrink-0"
+            >
+              Join
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient audio provision (hidden, activated on page load if motif exists) -->
+  {motifSrc && (
+    <audio id="ambient-motif" src={motifSrc} preload="auto" loop></audio>
+  )}
+</section>

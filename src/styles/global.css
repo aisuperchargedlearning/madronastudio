@@ -1,0 +1,174 @@
+/*
+ * MADRONA STUDIO — Global Styles
+ *
+ * "The site itself is storytelling. The scrolling is pacing.
+ *  The images are shots. The silence between sections
+ *  is the held breath between scenes."
+ *
+ * Palette informed by The Ferrari Covenant cover art:
+ * amber-gold sky, storm-cloud gray, warm stone, muted rosso, oil-dark ground.
+ */
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Typography imports
+ *
+ * Cormorant Garamond: Display face. Italian typographic tradition.
+ * Weights: 400 (body-display), 500 (emphasis), 600 (headings), 700 (hero).
+ * Italic for the Elena voice — interior, precise.
+ *
+ * Inter: Body face. Clean, quiet, disappears behind the prose.
+ * Weights: 300 (light passages), 400 (body), 500 (emphasis).
+ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap');
+
+@layer base {
+  /*
+   * CSS Reset & Base — establishing the ground.
+   * The site should feel like opening a well-made book:
+   * clean paper, considered margins, ink that knows its place.
+   */
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    color: #1c1916;              /* charcoal — warm near-black */
+    background-color: #f3ece1;   /* cream — warm parchment */
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /*
+   * Typography base — the Ferrante register in type.
+   * Headings carry weight without shouting.
+   * Body text is quiet and precise.
+   */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #1c1916;              /* charcoal */
+  }
+
+  p {
+    max-width: 42rem;
+  }
+
+  a {
+    color: #8b2a1a;              /* rosso — muted Ferrari red */
+    text-decoration: none;
+    transition: color 400ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  a:hover {
+    color: #a63420;              /* rosso-light — slightly warmer on hover */
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /*
+   * Selection — amber highlight, like the cover's golden sky.
+   */
+  ::selection {
+    background-color: #d4b878;   /* amber-pale */
+    color: #1c1916;              /* charcoal */
+  }
+
+  /*
+   * Focus styles — accessible but visually restrained.
+   */
+  :focus-visible {
+    outline: 2px solid #a8884a;  /* amber */
+    outline-offset: 3px;
+  }
+
+  /*
+   * Scrollbar — minimal, present but unobtrusive.
+   */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f3ece1;         /* cream */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c4a265;         /* amber-light */
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a8884a;         /* amber */
+  }
+}
+
+@layer components {
+  /*
+   * Utility classes specific to Madrona's voice.
+   */
+
+  /* The Elena voice — italic, interior, Ferrante register */
+  .voice-elena {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Placeholder marker for development */
+  .placeholder-text {
+    color: #6b6058;              /* metallic-steel */
+    font-style: italic;
+    position: relative;
+  }
+
+  .placeholder-text::before {
+    content: '[PLACEHOLDER] ';
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #c4a265;              /* amber-light */
+  }
+
+  /*
+   * Navigation hero mode — light text over dark hero.
+   * Transitions to standard dark-on-cream when scrolled past hero.
+   */
+  .nav-hero-mode a {
+    color: #f3ece1 !important;   /* cream */
+  }
+  .nav-hero-mode a:hover {
+    color: #d4b878 !important;   /* amber-pale */
+  }
+  .nav-hero-mode button {
+    color: #f3ece1 !important;   /* cream */
+  }
+}

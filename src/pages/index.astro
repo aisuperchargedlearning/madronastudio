@@ -1,0 +1,204 @@
+---
+/*
+ * HOME — "The Opening Shot"
+ *
+ * Structure: Studio title card (hero) → The Ferrari Covenant
+ * as the first property → four Cinematic Moments → closing CTA.
+ *
+ * The hero is Madrona Studio — the entity. Like a film studio card
+ * at the start of a movie: you register it, it sets the tone,
+ * and then the story begins immediately.
+ *
+ * The scroll from studio identity into The Ferrari Covenant
+ * should feel like the first thirty seconds of a film.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CinematicMoment from '../components/CinematicMoment.astro';
+import TextPassage from '../components/TextPassage.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+---
+
+<BaseLayout title="Home" currentPage="/" heroPage={true}>
+
+  <!-- ═══════════════════════════════════════════════
+       HERO — Studio Title Card
+       The cold open. Madrona Studio as identity,
+       then the story begins below.
+       ═══════════════════════════════════════════════ -->
+  <section class="hero-title-card relative w-full min-h-screen overflow-hidden flex flex-col">
+
+    <!-- Background — full-bleed video -->
+    <div class="absolute inset-0">
+      <video
+        id="hero-video"
+        class="absolute inset-0 w-full h-full object-cover"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        crossorigin="anonymous"
+      >
+        <source src="https://ik.imagekit.io/a7tech/madronastudio/Madronalogoreveal3.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <!-- Subtle bottom gradient for transition to next section -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-charcoal-deep/50"></div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       TRANSITION — From studio to story
+       A single breath, then the property arrives.
+       ═══════════════════════════════════════════════ -->
+  <section class="bg-charcoal-deep py-section-sm md:py-section" data-reveal>
+    <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 text-center">
+      <p class="text-nav font-body font-medium uppercase tracking-widest text-amber/50 mb-6">
+        Our First Property
+      </p>
+      <h2 class="font-display text-display-lg md:text-display-hero text-cream max-w-prose-wide mx-auto">
+        The Ferrari Covenant
+      </h2>
+      <p class="voice-elena text-body-lg md:text-display-sm text-cream/60 mt-6 md:mt-8 max-w-prose mx-auto">
+        [PLACEHOLDER — The opening statement. Two to three sentences in Elena's register. Not a tagline — a sentence that opens a door. The women, the engine, the war. The agency belongs to them.]
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOUR CINEMATIC MOMENTS
+       Each one is a scene, not a section. A beat in the
+       narrative that links deeper into THE WORLD or THE STORY.
+       ═══════════════════════════════════════════════ -->
+
+  <!-- Moment 1: The Crossing -->
+  <CinematicMoment
+    title="The Crossing"
+    passage="[PLACEHOLDER — The SS Rex, 1938. Elena leaves Berkeley carrying knowledge that will become dangerous the moment she steps onto Italian soil. The Atlantic crossing takes nine days. She spends them memorizing what she cannot write down.]"
+    linkHref="/the-world"
+    linkText="Enter the World"
+  />
+
+  <SectionDivider style="mark" />
+
+  <!-- Moment 2: The Factory -->
+  <CinematicMoment
+    title="The Factory"
+    passage="[PLACEHOLDER — Modena, wartime. Ferrari's machine shop hums with double purpose. What they build by day serves the regime. What they build by night serves something older than any government — the belief that precision is a form of resistance.]"
+    linkHref="/the-story"
+    linkText="Read the Story"
+    dark={true}
+  />
+
+  <SectionDivider style="mark" dark={true} />
+
+  <!-- Moment 3: The Mountains -->
+  <CinematicMoment
+    title="The Mountains"
+    passage="[PLACEHOLDER — The Dolomites. A resistance route measured in altitude and nerve. The passes that connect Modena to the north are not on any official map. You learn them with your feet, in weather that does not forgive hesitation.]"
+    linkHref="/the-world"
+    linkText="See the Terrain"
+  />
+
+  <SectionDivider style="mark" />
+
+  <!-- Moment 4: The Race -->
+  <CinematicMoment
+    title="The Race"
+    passage="[PLACEHOLDER — Rome, 1947. The engine they hid speaks for the first time. Two years after the war's end, on a circuit built through city streets, the machine that was never supposed to exist announces itself to the world. The sound is unmistakable.]"
+    linkHref="/the-story"
+    linkText="Read the Story"
+  />
+
+
+  <!-- ═══════════════════════════════════════════════
+       CLOSING — The invitation
+       Quiet, confident. Two paths forward.
+       ═══════════════════════════════════════════════ -->
+  <section class="bg-charcoal-deep py-section-sm md:py-section" data-reveal>
+    <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 text-center">
+      <p class="voice-elena text-display-sm md:text-display-md text-cream/80 max-w-prose mx-auto mb-passage">
+        [PLACEHOLDER — Read the novel. See the world it opens. A closing sentence that holds the atmosphere without pushing.]
+      </p>
+      <p class="text-body-sm text-amber/40 mb-8">
+        The Ferrari Covenant is Madrona Studio's first property.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="/the-book"
+          class="inline-block px-8 py-3 bg-rosso text-cream text-nav font-body font-medium uppercase tracking-widest hover:bg-rosso-light transition-colors duration-medium rounded-sm"
+        >
+          Get the Book
+        </a>
+        <a
+          href="/the-world"
+          class="inline-block px-8 py-3 border border-amber-pale/40 text-amber-pale text-nav font-body font-medium uppercase tracking-widest hover:bg-amber-pale/10 transition-colors duration-medium rounded-sm"
+        >
+          Enter the World
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero-title-card {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Gentle bobbing animation for scroll indicator */
+  @keyframes gentle-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  .animate-gentle-bob {
+    animation: gentle-bob 2.5s ease-in-out infinite;
+  }
+
+  /* Scroll dot moving down inside the mouse indicator */
+  @keyframes scroll-dot {
+    0% { opacity: 1; cy: 10; }
+    50% { opacity: 0.5; cy: 20; }
+    100% { opacity: 0; cy: 24; }
+  }
+  .animate-scroll-dot {
+    animation: scroll-dot 2s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  /*
+   * Scroll-triggered reveals for the home page.
+   * Elements with [data-reveal] fade in when they enter the viewport.
+   */
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('opacity-100', 'translate-y-0');
+          entry.target.classList.remove('opacity-0', 'translate-y-8');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    el.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-reveal', 'ease-reveal');
+    revealObserver.observe(el);
+  });
+
+  /* Force hero video playback — some browsers need a nudge */
+  const heroVideo = document.getElementById('hero-video');
+  if (heroVideo) {
+    heroVideo.play().catch(() => {
+      /* Autoplay blocked — try on first user interaction */
+      document.addEventListener('click', () => heroVideo.play(), { once: true });
+      document.addEventListener('scroll', () => heroVideo.play(), { once: true });
+    });
+  }
+</script>

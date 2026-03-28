@@ -1,0 +1,197 @@
+---
+/*
+ * BaseLayout — The frame that holds every page.
+ *
+ * Sticky minimal navigation. Seven pages listed cleanly.
+ * No dropdown menus. No hamburger on desktop.
+ * The navigation is a table of contents, not a control panel.
+ */
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPage?: string;
+  /** Remove top padding for full-bleed hero pages */
+  heroPage?: boolean;
+}
+
+const { title, description = 'Madrona Studio — Where the story begins.', currentPage = '', heroPage = false } = Astro.props;
+
+const navItems = [
+  { label: 'Feature', href: '/feature' },
+  { label: 'Novel', href: '/novel' },
+  { label: 'Studio', href: '/studio' },
+  { label: 'Dispatch', href: '/dispatch' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} — Madrona Studio</title>
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body class="bg-cream text-charcoal min-h-screen flex flex-col" data-hero-page={heroPage ? '' : undefined}>
+
+  <!-- Navigation — sticky, minimal, the seven pages listed cleanly -->
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-medium ease-reveal"
+    id="main-nav"
+  >
+    <!-- Desktop Navigation -->
+    <div class="hidden md:block">
+      <div class="max-w-content mx-auto px-8 lg:px-12">
+        <div class="flex items-center justify-between h-16 lg:h-20">
+          <!-- Studio mark -->
+          <a
+            href="/"
+            class="font-display text-lg lg:text-xl font-semibold tracking-tight text-charcoal hover:text-amber transition-colors duration-medium"
+          >
+            Madrona Studio
+          </a>
+
+          <!-- Page links -->
+          <div class="flex items-center gap-6 lg:gap-8">
+            {navItems.map(item => (
+              <a
+                href={item.href}
+                class:list={[
+                  'text-nav font-body font-medium uppercase tracking-widest transition-colors duration-medium',
+                  currentPage === item.href
+                    ? 'text-charcoal'
+                    : 'text-metallic-steel hover:text-charcoal',
+                ]}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden">
+      <div class="flex items-center justify-between h-14 px-5">
+        <a
+          href="/"
+          class="font-display text-lg font-semibold tracking-tight text-charcoal"
+        >
+          Madrona Studio
+        </a>
+        <button
+          id="mobile-menu-toggle"
+          class="text-charcoal p-2 -mr-2"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="4" y1="7" x2="20" y2="7" class="menu-line-top" />
+            <line x1="4" y1="12" x2="20" y2="12" class="menu-line-mid" />
+            <line x1="4" y1="17" x2="20" y2="17" class="menu-line-bot" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu panel -->
+      <div
+        id="mobile-menu"
+        class="hidden bg-cream border-t border-amber-pale/30"
+      >
+        <div class="px-5 py-6 flex flex-col gap-4">
+          {navItems.map(item => (
+            <a
+              href={item.href}
+              class:list={[
+                'font-display text-xl transition-colors duration-medium',
+                currentPage === item.href
+                  ? 'text-charcoal font-semibold'
+                  : 'text-metallic-steel hover:text-charcoal',
+              ]}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class:list={['flex-1', heroPage ? '' : 'pt-14 md:pt-16 lg:pt-20']}>
+    <slot />
+  </main>
+
+  <!-- Footer — quiet, confident -->
+  <footer class="border-t border-amber-pale/20 mt-section">
+    <div class="max-w-content mx-auto px-5 md:px-8 lg:px-12 py-12 md:py-16">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+          <p class="font-display text-lg font-semibold text-charcoal tracking-tight">
+            Madrona Studio
+          </p>
+          <p class="text-body-sm text-metallic-steel mt-1">
+            Where the story begins.
+          </p>
+        </div>
+        <p class="text-body-sm text-metallic-steel">
+          &copy; {new Date().getFullYear()} Madrona Studio. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Navigation scroll behavior + mobile menu -->
+  <script>
+    const nav = document.getElementById('main-nav');
+    const isHeroPage = document.body.hasAttribute('data-hero-page');
+    const scrollThreshold = isHeroPage ? window.innerHeight * 0.7 : 50;
+
+    function updateNav() {
+      if (!nav) return;
+      const scrolled = window.scrollY > scrollThreshold;
+
+      if (scrolled) {
+        nav.classList.add('bg-cream/95', 'backdrop-blur-sm', 'shadow-sm');
+        nav.classList.remove('nav-hero-mode');
+        if (isHeroPage) {
+          nav.style.transform = 'translateY(0)';
+          nav.style.opacity = '1';
+        }
+      } else {
+        nav.classList.remove('bg-cream/95', 'backdrop-blur-sm', 'shadow-sm');
+        if (isHeroPage) {
+          nav.style.transform = 'translateY(-100%)';
+          nav.style.opacity = '0';
+        }
+      }
+    }
+
+    // Hide nav initially on hero pages — it slides in on scroll
+    if (isHeroPage && nav) {
+      nav.style.transform = 'translateY(-100%)';
+      nav.style.opacity = '0';
+      nav.style.transition = 'transform 600ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 600ms cubic-bezier(0.25, 0.1, 0.25, 1)';
+    }
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Mobile menu toggle
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+
+    toggle?.addEventListener('click', () => {
+      const isOpen = menu?.classList.contains('hidden');
+      menu?.classList.toggle('hidden');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  </script>
+</body>
+</html>

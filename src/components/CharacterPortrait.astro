@@ -1,0 +1,75 @@
+---
+/*
+ * CharacterPortrait — Image + text side-by-side.
+ *
+ * For THE STORY page: Elena, Sophia, Enzo.
+ * Not a bio — a portrait. A photograph and a passage
+ * that evokes who they are.
+ *
+ * On mobile, stacks vertically. On desktop, image and text
+ * sit side by side with generous breathing room.
+ */
+
+interface Props {
+  /** Character name */
+  name?: string;
+  /** Portrait image source */
+  imageSrc?: string;
+  /** Image alt text */
+  imageAlt?: string;
+  /** Character description — evocative, not biographical */
+  description?: string;
+  /** Optional role or epithet below the name */
+  role?: string;
+  /** Image position: 'left' (default) | 'right' */
+  imagePosition?: 'left' | 'right';
+}
+
+const {
+  name = '[PLACEHOLDER — Character Name]',
+  imageSrc,
+  imageAlt = '',
+  description = '[PLACEHOLDER — Not a biography. A portrait in words. A passage that evokes who they are — the way they move through a room, the quality of their attention.]',
+  role,
+  imagePosition = 'left',
+} = Astro.props;
+---
+
+<section class="py-passage-sm md:py-passage">
+  <div class:list={[
+    'max-w-prose-wide mx-auto px-5 md:px-8 lg:px-12',
+    'flex flex-col md:flex-row gap-passage-sm md:gap-8 lg:gap-12 items-start',
+    imagePosition === 'right' ? 'md:flex-row-reverse' : '',
+  ]}>
+    <!-- Portrait image -->
+    <div class="w-full md:w-2/5 flex-shrink-0">
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={imageAlt}
+          class="w-full aspect-[3/4] object-cover rounded-sm"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-full aspect-[3/4] bg-gradient-to-b from-metallic-iron via-metallic to-metallic-steel rounded-sm">
+          <!-- Placeholder portrait — 3:4 aspect ratio, period-appropriate suggestion -->
+        </div>
+      )}
+    </div>
+
+    <!-- Character text -->
+    <div class="flex-1">
+      <h3 class="text-display-md font-display text-charcoal mb-1">
+        {name}
+      </h3>
+      {role && (
+        <p class="text-nav font-body font-medium uppercase tracking-widest text-amber mb-passage-sm">
+          {role}
+        </p>
+      )}
+      <p class="voice-elena text-body-lg text-metallic max-w-prose">
+        {description}
+      </p>
+    </div>
+  </div>
+</section>
