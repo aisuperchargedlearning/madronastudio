@@ -1,0 +1,323 @@
+/* LocationSections Styles — Madrona Studio (Sticky Runway) */
+
+/* Video Hero Section */
+.video-hero-section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.location-sections {
+  width: 100%;
+  background-color: var(--cream);
+}
+
+/* Sticky Runway: 100vh outer container */
+.location-section {
+  height: 100vh;
+  position: relative;
+}
+
+.location-section:nth-child(even) {
+  background-color: var(--cream);
+}
+
+.location-section:nth-child(odd) {
+  background: linear-gradient(to bottom, var(--cream) 0%, rgba(243, 236, 225, 0.5) 100%);
+}
+
+/* Sticky Container: 100vh, HELD during scroll */
+.section-sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  will-change: opacity, transform;
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* For sections with full viewport images - remove padding */
+.location-section[data-index="0"] .section-sticky-container,
+.location-section[data-index="1"] .section-sticky-container,
+.location-section[data-index="2"] .section-sticky-container,
+.location-section[data-index="3"] .section-sticky-container,
+.location-section[data-index="4"] .section-sticky-container,
+.location-section[data-index="5"] .section-sticky-container,
+.location-section[data-index="6"] .section-sticky-container,
+.location-section[data-index="7"] .section-sticky-container,
+.location-section[data-index="8"] .section-sticky-container,
+.location-section[data-index="9"] .section-sticky-container,
+.location-section[data-index="10"] .section-sticky-container,
+.location-section[data-index="11"] .section-sticky-container,
+.location-section[data-index="12"] .section-sticky-container,
+.location-section[data-index="13"] .section-sticky-container,
+.location-section[data-index="14"] .section-sticky-container,
+.location-section[data-index="15"] .section-sticky-container,
+.location-section[data-index="16"] .section-sticky-container,
+.location-section[data-index="17"] .section-sticky-container,
+.location-section[data-index="18"] .section-sticky-container,
+.location-section[data-index="19"] .section-sticky-container,
+.location-section[data-index="20"] .section-sticky-container,
+.location-section[data-index="21"] .section-sticky-container,
+.location-section[data-index="22"] .section-sticky-container,
+.location-section[data-index="23"] .section-sticky-container,
+.location-section[data-index="24"] .section-sticky-container {
+  padding: 0;
+}
+
+/* Inactive state: dramatically dimmed and smaller */
+.location-section:not(.active) .section-sticky-container {
+  opacity: 0.15;
+  transform: scale(0.92);
+  filter: blur(8px);
+}
+
+/* Chapter images should never be blurred or dimmed */
+.location-section[data-index="0"]:not(.active) .section-sticky-container,
+.location-section[data-index="1"]:not(.active) .section-sticky-container,
+.location-section[data-index="2"]:not(.active) .section-sticky-container,
+.location-section[data-index="3"]:not(.active) .section-sticky-container,
+.location-section[data-index="4"]:not(.active) .section-sticky-container,
+.location-section[data-index="5"]:not(.active) .section-sticky-container,
+.location-section[data-index="6"]:not(.active) .section-sticky-container,
+.location-section[data-index="7"]:not(.active) .section-sticky-container,
+.location-section[data-index="8"]:not(.active) .section-sticky-container,
+.location-section[data-index="9"]:not(.active) .section-sticky-container,
+.location-section[data-index="10"]:not(.active) .section-sticky-container,
+.location-section[data-index="11"]:not(.active) .section-sticky-container,
+.location-section[data-index="12"]:not(.active) .section-sticky-container,
+.location-section[data-index="13"]:not(.active) .section-sticky-container,
+.location-section[data-index="14"]:not(.active) .section-sticky-container,
+.location-section[data-index="15"]:not(.active) .section-sticky-container,
+.location-section[data-index="16"]:not(.active) .section-sticky-container,
+.location-section[data-index="17"]:not(.active) .section-sticky-container,
+.location-section[data-index="18"]:not(.active) .section-sticky-container,
+.location-section[data-index="19"]:not(.active) .section-sticky-container,
+.location-section[data-index="20"]:not(.active) .section-sticky-container,
+.location-section[data-index="21"]:not(.active) .section-sticky-container,
+.location-section[data-index="22"]:not(.active) .section-sticky-container,
+.location-section[data-index="23"]:not(.active) .section-sticky-container,
+.location-section[data-index="24"]:not(.active) .section-sticky-container {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+}
+
+/* Active state: FULL presence - clearly visible held state */
+.location-section.active .section-sticky-container {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+}
+
+/* Passed state: fade out and shrink more */
+.location-section.passed .section-sticky-container {
+  opacity: 0.08;
+  transform: scale(0.88);
+  filter: blur(12px);
+}
+
+/* Chapter images should never be blurred or dimmed when passed */
+.location-section[data-index="0"].passed .section-sticky-container,
+.location-section[data-index="1"].passed .section-sticky-container,
+.location-section[data-index="2"].passed .section-sticky-container,
+.location-section[data-index="3"].passed .section-sticky-container,
+.location-section[data-index="4"].passed .section-sticky-container,
+.location-section[data-index="5"].passed .section-sticky-container,
+.location-section[data-index="6"].passed .section-sticky-container,
+.location-section[data-index="7"].passed .section-sticky-container,
+.location-section[data-index="8"].passed .section-sticky-container,
+.location-section[data-index="9"].passed .section-sticky-container,
+.location-section[data-index="10"].passed .section-sticky-container,
+.location-section[data-index="11"].passed .section-sticky-container,
+.location-section[data-index="12"].passed .section-sticky-container,
+.location-section[data-index="13"].passed .section-sticky-container,
+.location-section[data-index="14"].passed .section-sticky-container,
+.location-section[data-index="15"].passed .section-sticky-container,
+.location-section[data-index="16"].passed .section-sticky-container,
+.location-section[data-index="17"].passed .section-sticky-container,
+.location-section[data-index="18"].passed .section-sticky-container,
+.location-section[data-index="19"].passed .section-sticky-container,
+.location-section[data-index="20"].passed .section-sticky-container,
+.location-section[data-index="21"].passed .section-sticky-container,
+.location-section[data-index="22"].passed .section-sticky-container,
+.location-section[data-index="23"].passed .section-sticky-container,
+.location-section[data-index="24"].passed .section-sticky-container {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+}
+
+.section-content {
+  max-width: var(--max-prose-width);
+  width: 100%;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  margin-left: 6rem;
+}
+
+/* Text overlay for Ken Burns sections */
+.section-content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 6rem;
+}
+
+.section-content-overlay .section-number {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.section-content-overlay .section-title {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.section-number {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  color: var(--metallic-steel);
+  margin-bottom: 2rem;
+  font-weight: 400;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.location-section:not(.active) .section-number {
+  opacity: 0.5;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  margin: 0 0 var(--passage-gap) 0;
+  color: var(--charcoal-deep);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  transition: opacity 0.6s ease-in-out, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.location-section:not(.active) .section-title {
+  opacity: 0.6;
+}
+
+.section-body {
+  margin-top: var(--passage-gap);
+  transition: opacity 0.6s ease-in-out 0.2s;
+}
+
+.location-section:not(.active) .section-body {
+  opacity: 0.5;
+}
+
+.content-placeholder {
+  background: rgba(168, 136, 74, 0.05);
+  border: 1px dashed var(--amber-pale);
+  border-radius: 2px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--metallic);
+}
+
+.content-placeholder p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  margin: 0 0 1.5rem 0;
+  color: var(--metallic-steel);
+}
+
+.content-placeholder p:last-child {
+  margin-bottom: 0;
+}
+
+.content-placeholder ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 0 0;
+  display: inline-block;
+  text-align: left;
+}
+
+.content-placeholder li {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  padding: 0.5rem 0;
+  color: var(--metallic-steel);
+}
+
+.content-placeholder li::before {
+  content: "· ";
+  color: var(--amber);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Chapter Image Container */
+.chapter-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chapter-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .location-section {
+    height: 100vh;
+  }
+
+  .section-sticky-container {
+    padding: 3rem 1.5rem;
+  }
+
+  /* Less aggressive blur on mobile for performance */
+  .location-section:not(.active) .section-sticky-container {
+    filter: blur(4px);
+  }
+
+  .location-section.passed .section-sticky-container {
+    filter: blur(6px);
+  }
+
+  .content-placeholder {
+    padding: 2rem 1.5rem;
+  }
+
+  .content-placeholder p {
+    font-size: 1rem;
+  }
+
+  .content-placeholder li {
+    font-size: 0.875rem;
+  }
+}

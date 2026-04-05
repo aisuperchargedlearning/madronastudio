@@ -1,0 +1,138 @@
+/* MapNavigation Styles — Madrona Studio */
+
+.map-navigation {
+  position: absolute;
+  top: 42%;
+  left: 8%;
+  z-index: 10;
+  opacity: 0;
+  animation: fadeInNav 1s ease-in-out 1.5s forwards;
+}
+
+@keyframes fadeInNav {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.map-nav-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.map-nav-container::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 0;
+}
+
+.map-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--cream);
+  font-family: var(--font-body);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.map-nav-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(128, 128, 128, 0.92);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.map-nav-item:hover .map-nav-number {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.map-nav-city {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--cream);
+}
+
+.map-nav-item:first-child .map-nav-city,
+.map-nav-item.active .map-nav-city {
+  opacity: 1;
+  max-width: 150px;
+}
+
+.map-nav-item:hover .map-nav-city {
+  opacity: 1;
+  max-width: 150px;
+}
+
+@media (max-width: 968px) {
+  .map-navigation {
+    top: 30%;
+    left: 5%;
+  }
+
+  .map-nav-number {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8125rem;
+  }
+
+  .map-nav-city {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .map-navigation {
+    top: 25%;
+    left: 4%;
+  }
+
+  .map-nav-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .map-nav-city {
+    font-size: 0.875rem;
+  }
+
+  .map-nav-item {
+    padding: 10px 0;
+    gap: 10px;
+  }
+}

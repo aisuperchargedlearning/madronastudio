@@ -1,0 +1,40 @@
+/* KenBurnsImage Styles — Full Viewport Cinematic Pan and Zoom */
+
+.ken-burns-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.ken-burns-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.0);
+  transform-origin: center center;
+  opacity: 1;
+  will-change: transform;
+}
+
+/* Ken Burns Animation - Targeted zoom to top right plate/detail */
+.ken-burns-image.animate {
+  animation: kenBurnsEffect 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes kenBurnsEffect {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.4);
+  }
+}
+
+/* Reset state when not animating */
+.ken-burns-image:not(.animate) {
+  transform: scale(1.0);
+  transition: transform 0.3s ease-out;
+}

@@ -1,0 +1,79 @@
+/* HeroVideoSection Styles — Madrona Studio */
+
+.hero-video-section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--charcoal-deep);
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-video::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(17, 15, 13, 0.3) 100%);
+  pointer-events: none;
+}
+
+.hero-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--storm);
+  position: relative;
+}
+
+.hero-placeholder::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--charcoal-deep) 0%, var(--storm) 100%);
+  opacity: 0.8;
+}
+
+.hero-placeholder-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--cream);
+  padding: 2rem;
+}
+
+.hero-placeholder-content h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+}
+
+.hero-placeholder-content p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  margin: 0;
+  opacity: 0.9;
+  color: var(--amber-pale);
+}
+
+@media (max-width: 768px) {
+  .hero-video-section {
+    height: 70vh;
+    min-height: 500px;
+  }
+}
