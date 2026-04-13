@@ -25,6 +25,19 @@
   pointer-events: none;
 }
 
+.hero-tm-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  right: 1.5rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-display, serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  pointer-events: none;
+  user-select: none;
+}
+
 .hero-placeholder {
   width: 100%;
   height: 100%;
